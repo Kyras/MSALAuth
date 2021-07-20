@@ -2,8 +2,6 @@
 import {loginRequest} from "../authConfig";
 import {callMsGraph} from "../graph";
 import {AuthenticatedTemplate, UnauthenticatedTemplate, useIsAuthenticated, useMsal} from "@azure/msal-react";
-import DropdownButton from "react-bootstrap/DropdownButton";
-import Dropdown from "react-bootstrap/esm/Dropdown";
 import {Nav, NavDropdown} from "react-bootstrap";
 
 export const UserInfo = () => {
@@ -51,15 +49,6 @@ export const UserInfo = () => {
                 </div>}>
                 </NavDropdown>
             </Nav>
-            {/*<div className="UserActions">*/}
-            {/*    <AuthenticatedTemplate>*/}
-            {/*        <img className="img-thumbnail" src={thumbnail} alt="Avatar" width="64px" height="64px"/>*/}
-            {/*        <DropdownButton variant="secondary" className="ml-auto" drop="down" title={accounts[0].name}>*/}
-            {/*            <Dropdown.Item as="button" onClick={() => handleLogout('popup')}>Sign out using*/}
-            {/*                Popup</Dropdown.Item>*/}
-            {/*        </DropdownButton>*/}
-            {/*    </AuthenticatedTemplate>*/}
-            {/*</div>*/}
         </>
     )
 }

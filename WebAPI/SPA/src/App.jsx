@@ -6,6 +6,8 @@ import {ProfileData} from "./components/ProfileData";
 import {callMsGraph} from "./graph";
 import Button from "react-bootstrap/Button";
 import "./styles/App.css";
+import {ShowTodos} from "./components/ShowTodos";
+import {AddTodo} from "./components/AddTodo";
 
 /**
  * Renders information about the signed-in user or a button to retrieve data about the user
@@ -47,6 +49,7 @@ const ProfileContent = () => {
             })
         })
     }
+
     return (
         <>
             <h5 className="card-title">Welcome {accounts[0].name}</h5>
@@ -66,7 +69,9 @@ const MainContent = () => {
         return (
             <div className="App">
                 <AuthenticatedTemplate>
-                    <ProfileContent/>
+                    <AddTodo/>
+                    <ShowTodos todos={[{id: 0, description: "todo-task", owner: "you", done: true}]}/>
+                    {/*<ProfileContent/>*/}
                 </AuthenticatedTemplate>
 
                 <UnauthenticatedTemplate>

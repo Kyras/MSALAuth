@@ -17,9 +17,6 @@ export const PageLayout = (props) => {
     return (
         <>
             <AppNavbar/>
-            <h5>
-                <center>Welcome to the Microsoft Authentication Library For Javascript - React Quickstart</center>
-            </h5>
             <br/>
             <br/>
             {props.children}

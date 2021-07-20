@@ -10,13 +10,21 @@ import Dropdown from "react-bootstrap/esm/Dropdown";
 export const SignInButton = () => {
     const {instance} = useMsal();
 
-    const handleLogin = (loginType) => {
+    const handleLogin = (loginType, role = "user") => {
         let promise = undefined;
+        let request = undefined;
+        if (role === "user") {
+            request = loginRequest.userLoginRequest
+        } else if (role === "admin") {
+            request = loginRequest.adminLoginRequest
+        } else {
+            throw new RangeError(`Expected user or admin role, got: ${role}`)
+        }
 
         if (loginType === "popup") {
-            promise = instance.loginPopup(loginRequest);
+            promise = instance.loginPopup(request);
         } else if (loginType === "redirect") {
-            promise = instance.loginRedirect(loginRequest);
+            promise = instance.loginRedirect(request);
         } else {
             throw new TypeError(`Unknown loginType ${loginType}`)
         }
@@ -30,7 +38,9 @@ export const SignInButton = () => {
     return (
         <DropdownButton variant="secondary" className="ml-auto" drop="left" title="Sign In">
             <Dropdown.Item as="button" onClick={() => handleLogin("popup")}>Sign in using Popup</Dropdown.Item>
+            <Dropdown.Item as="button" onClick={() => handleLogin("popup", "admin")}>Sign in using Popup (Admin)</Dropdown.Item>
             <Dropdown.Item as="button" onClick={() => handleLogin("redirect")}>Sign in using Redirect</Dropdown.Item>
+            <Dropdown.Item as="button" onClick={() => handleLogin("redirect", "admin")}>Sign in using Redirect (Admin)</Dropdown.Item>
         </DropdownButton>
     )
 }

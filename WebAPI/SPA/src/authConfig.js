@@ -1,4 +1,4 @@
-﻿import { LogLevel } from "@azure/msal-browser";
+﻿import {LogLevel} from "@azure/msal-browser";
 
 /**
  * Configuration object to be passed to MSAL instance on creation.
@@ -40,6 +40,21 @@ export const msalConfig = {
     }
 };
 
+export const protectedResources = {
+    todoListApi: {
+        request: {
+            scopes: ["api://b77a69ed-4b4f-4664-96ca-9888ef2c0b1b/access_as_user"]
+        },
+        endpoint: "https://localhost:5001/api/Todo",
+    },
+    adminTodoListApi: {
+        request: {
+            scopes: ["api://b77a69ed-4b4f-4664-96ca-9888ef2c0b1b/access_as_admin", "api://b77a69ed-4b4f-4664-96ca-9888ef2c0b1b/access_as_user"]
+        },
+        endpoint: "https://localhost:5001/api/Todo",
+    }
+}
+
 /**
  * Scopes you add here will be prompted for user consent during sign-in.
  * By default, MSAL.js will add OIDC scopes (openid, profile, email) to any login request.
@@ -47,7 +62,19 @@ export const msalConfig = {
  * https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-permissions-and-consent#openid-connect-scopes
  */
 export const loginRequest = {
-    scopes: ["User.Read"]
+    adminLoginRequest: {
+        scopes: [
+            "User.Read",
+            "api://b77a69ed-4b4f-4664-96ca-9888ef2c0b1b/access_as_user",
+            "api://b77a69ed-4b4f-4664-96ca-9888ef2c0b1b/access_as_admin",
+        ]
+    },
+    userLoginRequest: {
+        scopes: [
+            "User.Read",
+            "api://b77a69ed-4b4f-4664-96ca-9888ef2c0b1b/access_as_user",
+        ]
+    }
 };
 
 /**

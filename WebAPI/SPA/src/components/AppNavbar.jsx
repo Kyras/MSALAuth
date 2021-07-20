@@ -9,6 +9,7 @@ import {AuthenticatedTemplate, UnauthenticatedTemplate, useIsAuthenticated, useM
 import React, {useState} from "react";
 import {loginRequest} from "../authConfig";
 import {callMsGraph} from "../graph";
+import Dropdown from "react-bootstrap/Dropdown";
 
 export const AppNavbar = () => {
     const {instance, accounts} = useMsal()
@@ -29,13 +30,21 @@ export const AppNavbar = () => {
         })
     }
 
-    const HandleLogin = (loginType) => {
+    const HandleLogin = (loginType, role = "user") => {
         let promise = undefined;
+        let request = undefined;
+        if (role === "user") {
+            request = loginRequest.userLoginRequest
+        } else if (role === "admin") {
+            request = loginRequest.adminLoginRequest
+        } else {
+            throw new RangeError(`Expected user or admin role, got: ${role}`)
+        }
 
         if (loginType === "popup") {
-            promise = instance.loginPopup(loginRequest);
+            promise = instance.loginPopup(request);
         } else if (loginType === "redirect") {
-            promise = instance.loginRedirect(loginRequest);
+            promise = instance.loginRedirect(request);
         } else {
             throw new TypeError(`Unknown loginType ${loginType}`)
         }
@@ -82,9 +91,10 @@ export const AppNavbar = () => {
 
                         <UnauthenticatedTemplate>
                             <NavDropdown title="LogIn" id="basic-nav-dropdown" className="justify-content-end">
-                                <NavDropdown.Item onClick={() => HandleLogin("popup")}>LogIn (PopUp)</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => HandleLogin("redirect")}>LogIn
-                                    (Redirect)</NavDropdown.Item>
+                                <Dropdown.Item as="button" onClick={() => HandleLogin("popup")}>Sign in using Popup</Dropdown.Item>
+                                <Dropdown.Item as="button" onClick={() => HandleLogin("popup", "admin")}>Sign in using Popup (Admin)</Dropdown.Item>
+                                <Dropdown.Item as="button" onClick={() => HandleLogin("redirect")}>Sign in using Redirect</Dropdown.Item>
+                                <Dropdown.Item as="button" onClick={() => HandleLogin("redirect", "admin")}>Sign in using Redirect (Admin)</Dropdown.Item>
                             </NavDropdown>
                         </UnauthenticatedTemplate>
                     </Nav>

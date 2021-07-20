@@ -1,26 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Dev\\C#\\MSALAuth\\WebAPI\\WebAPI.csproj": {}
+    "C:\\Users\\Lenovo ThinkPad\\Dev\\C#\\MSALAuth\\WebAPI\\WebAPI.csproj": {}
   },
   "projects": {
-    "E:\\Dev\\C#\\MSALAuth\\WebAPI\\WebAPI.csproj": {
+    "C:\\Users\\Lenovo ThinkPad\\Dev\\C#\\MSALAuth\\WebAPI\\WebAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Dev\\C#\\MSALAuth\\WebAPI\\WebAPI.csproj",
+        "projectUniqueName": "C:\\Users\\Lenovo ThinkPad\\Dev\\C#\\MSALAuth\\WebAPI\\WebAPI.csproj",
         "projectName": "WebAPI",
-        "projectPath": "E:\\Dev\\C#\\MSALAuth\\WebAPI\\WebAPI.csproj",
-        "packagesPath": "C:\\Users\\mrtla\\.nuget\\packages\\",
-        "outputPath": "E:\\Dev\\C#\\MSALAuth\\WebAPI\\obj\\",
+        "projectPath": "C:\\Users\\Lenovo ThinkPad\\Dev\\C#\\MSALAuth\\WebAPI\\WebAPI.csproj",
+        "packagesPath": "C:\\Users\\Lenovo ThinkPad\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Lenovo ThinkPad\\Dev\\C#\\MSALAuth\\WebAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\mrtla\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Lenovo ThinkPad\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.globalprocessing.com:8213/GpsNugetDownload63396D84D3/": {}
         },
         "frameworks": {
           "net5.0": {
@@ -48,7 +49,7 @@
             },
             "Microsoft.Identity.Web": {
               "target": "Package",
-              "version": "[1.1.0, )"
+              "version": "[1.14.1, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -73,7 +74,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
         }
       }
     }
