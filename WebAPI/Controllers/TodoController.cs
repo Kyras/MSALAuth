@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
@@ -27,17 +26,17 @@ namespace WebAPI.Controllers
         private string Owner => User.FindFirst("name")?.Value;
 
         [HttpGet]
-        [Authorize("Role", Roles = "Todos.User Todos.Manager")]
+        [Authorize(Policy = "AuthUser")]
         public ActionResult<IEnumerable<TodoItem>> GetTodoItems()
         {
-            var result = Data.FindAll(item => item.Owner == Owner);
+            var isManager = User.FindFirst("roles")?.Value == "Todos.Manager";
+            var result = isManager ? Data : Data.FindAll(item => item.Owner == Owner);
 
             _logger.LogInformation("Returning {Count} todos", result.Count);
             return Ok(result);
         }
 
         [HttpGet("{id:long}")]
-        [Authorize("Role", Roles = "Todos.User Todos.Manager")]
         public ActionResult<IEnumerable<TodoItem>> GetTodoItem(long id)
         {
             var result = Data.Find(item => item.Id == id && item.Owner == Owner);
@@ -50,7 +49,6 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        [Authorize("Role", Roles = "Todos.User Todos.Manager")]
         public ActionResult<TodoItem> PostTodoItem(TodoItemPostDTO todoItem)
         {
             var toInsert = new TodoItem()

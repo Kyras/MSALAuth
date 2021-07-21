@@ -35,7 +35,6 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             services.AddMicrosoftIdentityWebApiAuthentication(Configuration);
             services.AddCors(options =>
             {
@@ -48,6 +47,21 @@ namespace WebAPI
                             .AllowAnyMethod();
                     });
             });
+            
+            JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
+
+            services.Configure<OpenIdConnectOptions>(OpenIdConnectDefaults.AuthenticationScheme, options =>
+            {
+                options.TokenValidationParameters.RoleClaimType = "roles";
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("User", policy => policy.RequireClaim("roles", "Todos.User"));
+                options.AddPolicy("Manager", policy => policy.RequireClaim("roles", "Todos.Manager"));
+                options.AddPolicy("AuthUser",
+                    policy => policy.RequireClaim("roles", "Todos.Manager", "Todos.User"));
+            });
 
             services.AddControllers(options => options.Filters.Add(
                 new AuthorizeFilter(
@@ -55,16 +69,7 @@ namespace WebAPI
                         .RequireAuthenticatedUser()
                         .Build())));
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("Role", policy => policy.RequireClaim(ClaimTypes.Role));
-                options.AddPolicy("UserOnly", policy => policy.RequireClaim("access_as_user"));
-            });
-
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
-            });
+            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "WebAPI", Version = "v1"}); });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,10 +90,7 @@ namespace WebAPI
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

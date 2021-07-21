@@ -105,3 +105,4 @@ C:\Users\Lenovo ThinkPad\Dev\C#\MSALAuth\WebAPI\obj\Debug\net5.0\ref\WebAPI.dll
 C:\Users\Lenovo ThinkPad\Dev\C#\MSALAuth\WebAPI\obj\Debug\net5.0\WebAPI.pdb
 C:\Users\Lenovo ThinkPad\Dev\C#\MSALAuth\WebAPI\obj\Debug\net5.0\WebAPI.genruntimeconfig.cache
 C:\Users\Lenovo ThinkPad\Dev\C#\MSALAuth\WebAPI\bin\Debug\net5.0\System.Text.Encodings.Web.dll
+E:\Dev\C#\MSALAuth\WebAPI\bin\Debug\net5.0\System.Text.Encodings.Web.dll
